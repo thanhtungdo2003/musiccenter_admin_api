@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.36" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MusicBusniess">
+      <HintPath>..\MusicBusniess\bin\Debug\net6.0\MusicBusniess.dll</HintPath>
+    </Reference>
+    <Reference Include="TT_DBLib">
+      <HintPath>..\MusicBusniess\bin\Debug\net6.0\TT_DBLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
