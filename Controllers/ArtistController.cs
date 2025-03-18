@@ -56,6 +56,17 @@ namespace MusicCenterAPI.Controllers
             }
             return NotFound();
         }
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(string id)
+        {
+            if (Guid.TryParse(id, out Guid uid))
+            {
+                api.DeleteDataByValue("Artist", "ArtistUid", id.ToString());
+                return Ok();
+            }
+            return NotFound();
+        }
         [HttpPost]
         public IActionResult Add(string stageName, IFormFile? avataFile)
         {
@@ -68,22 +79,28 @@ namespace MusicCenterAPI.Controllers
                     Avata = avataFile.FileName,
                     Visits = 0
                 };
-                api.FileAdd("artist-avata", avataFile);
+                api.FileAdd(api.GetFilePathConfig("Appsettings", "artist-avata"), avataFile);
                 _artist.Save();
                 return Ok();
             }
             return BadRequest("Không có tệp nào được chọn");
         }
 
-        [HttpPut("{id}")]
-        public IActionResult SetById(string id, ArtistData artist)
+        [HttpPut("update")]
+        public IActionResult SetById([FromBody] ArtistData artist)
         {
-            if (Guid.TryParse(id, out Guid uid))
+            if (artist == null)
+            {
+                return NotFound();
+            }
+            if (Guid.TryParse(artist.ArtistUid, out Guid uid))
             {
                 var artistEditor = new ArtistData(api, uid);
                 if (artistEditor != null)
                 {
                     artistEditor.StageName = artist.StageName;
+                    artistEditor.Avata = artist.Avata;
+                    artistEditor.Visits = artist.Visits;
                     artistEditor.Save();
                     return NoContent();
                 }

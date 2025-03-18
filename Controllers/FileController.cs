@@ -23,5 +23,10 @@ namespace MusicCenterAPI.Controllers
             }
             return BadRequest();
         }
+        [HttpPost("avata/add")]
+        public IActionResult AddAvata(IFormFile? file)
+        {
+            return Ok(api.FileAdd(api.GetFilePathConfig("Appsettings", "artist-avata"), file));
+        }
     }
 }
